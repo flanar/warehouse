@@ -8,3 +8,7 @@
 
 - Add and configure tailwindcss
 - Implement switching beetwen light and dark mode in Navigation
+
+## 0.0.3
+
+- Add database support (configure knex.js)
