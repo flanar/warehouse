@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { sampleUserData } from '../../../utils/sample-data'
 
-export default (_req: NextApiRequest, res: NextApiResponse) => {
+import db from '../../../db-config'
+
+export default async (_req: NextApiRequest, res: NextApiResponse) => {
     try {
-        if (!Array.isArray(sampleUserData)) {
-            throw new Error('Cannot find user data')
-        }
-        res.status(200).json(sampleUserData)
+        const users = await db.select('user_login', 'user_name', 'user_surname', 'user_email').from('users')
+        res.status(200).json(users)
     } catch (err) {
         res.status(500).json({ statusCode: 500, message: err.message })
     }

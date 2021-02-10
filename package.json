@@ -5,15 +5,20 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
+    "reset-db": "rm -f ./database/dev.sqlite3 && knex migrate:latest && knex seed:run"
   },
   "dependencies": {
     "@svgr/webpack": "^5.5.0",
     "autoprefixer": "^10.2.4",
+    "knex": "^0.21.17",
     "next": "latest",
     "postcss": "^8.2.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "sqlite3": "^5.0.1",
     "tailwindcss": "^2.0.3"
   },
   "devDependencies": {
