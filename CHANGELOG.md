@@ -12,3 +12,7 @@
 ## 0.0.3
 
 - Add database support (configure knex.js)
+
+## 0.0.4
+
+- Add authentication (next-iron-session)

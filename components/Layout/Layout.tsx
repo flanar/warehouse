@@ -19,7 +19,9 @@ const Layout = ({ children, title = 'Default title' }: Props) => (
         <header>
             <Nav />
         </header>
-        {children}
+        <main className='p-3'>
+            {children}
+        </main>
     </>
 )
 
