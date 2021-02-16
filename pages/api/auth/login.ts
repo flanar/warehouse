@@ -9,7 +9,7 @@ export default withSession(async (req, res) => {
 
         if(!login || !password) {
             return res.status(400).json({
-                message: 'Incorrect body.'
+                message: 'Login i hasło nie mogą być puste.'
             })
         }
 
@@ -23,12 +23,12 @@ export default withSession(async (req, res) => {
                 res.status(200).json(user[0].user_id)
             } else {
                 res.status(401).json({
-                    message: 'Incorrect password.'
+                    message: 'Nieprawidłowe hasło.'
                 })
             }
         } else {
             res.status(401).json({
-                message: 'User does not exist.'
+                message: 'Użytkownik nie istnieje.'
             })
         }
     } catch (err) {

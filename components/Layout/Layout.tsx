@@ -8,7 +8,7 @@ interface Props {
     title?: string
 }
 
-const Layout = ({ children, title = 'Default title' }: Props) => (
+const Layout = ({ children, title = 'Kate&John' }: Props) => (
     <>
         <Head>
             <title>{title}</title>

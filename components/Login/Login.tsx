@@ -1,4 +1,5 @@
 import { useState, SyntheticEvent } from 'react'
+import Head from 'next/head'
 import userUser from '../../utils/useUser'
 import fetchJson from '../../utils/fetchJson'
 
@@ -38,13 +39,26 @@ const Login = () => {
 
     return (
         <>
-            <form onSubmit={submitHandler}>
-                <input className='bg-gray-200' type='text' name='login' placeholder='login' />
-                <input className='bg-gray-200' type='password' name='password' placeholder='password' />
-                <button type='submit'>Login</button>
-            </form>
-            {error && <div>{error}</div>}
+            <Head>
+                <title>Kate&John</title>
+            </Head>
+            <div className='w-full h-screen flex justify-center items-center'>
+                <form className='h-1/2 flex flex-col justify-between items-center text-white' onSubmit={submitHandler}>
+                    <h1 className='my-2 text-3xl tracking-widest'>Logowanie</h1>
+                    <h2 className='my-2 '>Witaj w Kate&John&apos;s World aplikacji magazynowej!</h2>
+                    <input className='my-2 px-8 py-4 w-96 block rounded-3xl bg-white bg-opacity-20 placeholder-white outline-none' type='text' name='login' placeholder='Login' />
+                    <input className='my-2 px-8 py-4 w-96 block rounded-3xl bg-white bg-opacity-20 placeholder-white outline-none' type='password' name='password' placeholder='Hasło' />
+                    {error && <div className='my-2 text-rose-400'>{error}</div>}
+                    <button className='my-2 px-8 py-4 w-full rounded-3xl bg-green-500 hover:bg-green-600 outline-none focus:outline-none' type='submit'>Zaloguj się</button>
+                </form>
+            </div>
+            <style jsx global>{`
+                body {
+                    background: #134E4A;
+                }
+            `}</style>
         </>
+        
     )
 }
 
