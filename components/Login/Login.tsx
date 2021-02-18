@@ -45,7 +45,7 @@ const Login = () => {
             <div className='w-full h-screen flex justify-center items-center'>
                 <form className='h-1/2 flex flex-col justify-between items-center text-white' onSubmit={submitHandler}>
                     <h1 className='my-2 text-3xl tracking-widest'>Logowanie</h1>
-                    <h2 className='my-2 '>Witaj w Kate&John&apos;s World aplikacji magazynowej!</h2>
+                    <h2 className='my-2'>Kate&John&apos;s World <span className='text-coolGray-400'>aplikacja magazynowa</span></h2>
                     <input className='my-2 px-8 py-4 w-96 block rounded-3xl bg-white bg-opacity-20 placeholder-white outline-none' type='text' name='login' placeholder='Login' />
                     <input className='my-2 px-8 py-4 w-96 block rounded-3xl bg-white bg-opacity-20 placeholder-white outline-none' type='password' name='password' placeholder='Hasło' />
                     {error && <div className='my-2 text-rose-400'>{error}</div>}

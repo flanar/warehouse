@@ -1,4 +1,3 @@
-import Layout from '../components/Layout'
 import Login from '../components/Login'
 import useUser from '../utils/useUser'
 
@@ -7,9 +6,9 @@ const IndexPage = () => {
     if(!user || !user.isLoggedIn) return  <Login />
 
     return (
-        <Layout>
-            <h1 className='pb-5'>Welcome to warehouse application</h1>
-        </Layout>
+        <div className='flex justify-center'>
+            <h1 className='mt-24 p-4 text-center text-3xl'>Witaj w Kate&John's World aplikacji magazynowej.</h1>
+        </div>
 
     )
 }

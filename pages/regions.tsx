@@ -1,14 +1,13 @@
 import useUser from '../utils/useUser'
-import Layout from '../components/Layout'
 
 const Regions = () => {
     const { user } = useUser({ redirectTo: '/' })
-    if(!user || !user.isLoggedIn) return <Layout>Loading...</Layout>
+    if(!user || !user.isLoggedIn) return <div>Loading...</div>
 
     return (
-        <Layout>
+        <div>
             <h1>Regions</h1>
-        </Layout>
+        </div>
     )
 }
 

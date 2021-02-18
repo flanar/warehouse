@@ -16,3 +16,8 @@
 ## 0.0.4
 
 - Add authentication (next-iron-session)
+
+## 0.0.5
+
+- Style login page
+- Add and style navbars: sidebar and topbar
