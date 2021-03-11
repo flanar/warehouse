@@ -49,6 +49,20 @@
   tags:
     - build-web-services
 
+- name: Make migrations
+  shell: yarn migrate
+  args:
+    chdir: '{{ root_dir }}'
+  tags:
+    - database
+
+- name: Seed database
+  shell: yarn seed
+  args:
+    chdir: '{{ root_dir }}'
+  tags:
+    - database
+
 - name: Copy PM2 `ecosystem` configuration file
   ansible.builtin.copy:
     src: "{{ role_path }}/files//{{ ecosystem_file }}"
@@ -56,8 +70,16 @@
   tags:
     - run
 
+- name: Copy run script
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files//run"
+    dest: "{{ root_dir }}/run"
+    mode: a+x
+  tags:
+    - run
+
 - name: Start a PM2 manager
-  command: "pm2 start {{ ecosystem_file }}"
+  ansible.builtin.shell: "./run"
   args:
     chdir: "{{ root_dir }}"
   tags:

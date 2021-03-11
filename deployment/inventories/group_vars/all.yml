@@ -1,4 +1,4 @@
-next_app_version: 0.0.6
+next_app_version: 0.0.7
 
 npm_packages:
   - name: pm2

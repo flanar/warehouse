@@ -28,3 +28,7 @@
 - Add select component
 - Add input component
 - Add checkbox component
+
+## 0.0.7
+
+- Add deployment

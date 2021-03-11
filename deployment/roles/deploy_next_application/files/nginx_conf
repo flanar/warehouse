@@ -1,0 +1,29 @@
+server {
+    listen                  80;
+    client_max_body_size    500M;
+
+    server_name kateandjohnworld.pl;
+
+    # Redirect all requests to HTTPS:
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen                  443 ssl;
+    client_max_body_size    500M;
+
+    server_name kateandjohnworld.pl;
+
+    location / {
+        proxy_pass          http://localhost:3000;
+
+        proxy_set_header    Host                $http_host;
+        proxy_set_header    X-Real-IP           $remote_addr;
+        proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto   https;
+        proxy_set_header    X-Frame-Options     SAMEORIGIN;
+    }
+
+    ssl_certificate /etc/letsencrypt/live/kateandjohnworld.pl/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/kateandjohnworld.pl/privkey.pem;
+}
