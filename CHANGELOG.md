@@ -21,3 +21,10 @@
 
 - Style login page
 - Add and style navbars: sidebar and topbar
+
+## 0.0.6
+
+- Add table component
+- Add select component
+- Add input component
+- Add checkbox component

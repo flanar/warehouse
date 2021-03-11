@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.marked-checkbox {
+    position: relative;
+}
+
+.marked-checkbox:checked::after {
+    content: url('/check.svg');
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
