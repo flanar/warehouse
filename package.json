@@ -1,5 +1,5 @@
 {
-  "name": "with-typescript",
+  "name": "web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
+    "build:style": "tailwind build styles/global.css -o styles/global.css",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run",
     "reset-db": "rm -f ./database/dev.sqlite3 && knex migrate:latest && knex seed:run"

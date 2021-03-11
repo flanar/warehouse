@@ -1,0 +1,6 @@
+- name: Deploy whole next application
+  hosts: production
+  gather_facts: false
+
+  roles:
+    - deploy_next_application
