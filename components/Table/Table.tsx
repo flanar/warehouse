@@ -10,7 +10,7 @@ interface BodyItem {
 interface TableProps {
     head: Array<string>
     body: Array<BodyItem>
-    foot: ReactNode
+    foot?: ReactNode
 }
 
 const Table: FC<TableProps> = ({head, body, foot}) => {
@@ -31,7 +31,7 @@ const Table: FC<TableProps> = ({head, body, foot}) => {
 
     const tfoot = <div>
         <div className='px-6 py-3 bg-teal-800 hover:opacity-80 border border-coolGray-100 cursor-pointer' onClick={() => setShow(!show)}>{show ? '-' : '+'}</div>
-        { show && <div>{foot}</div> }
+        { show && <div>{foot && foot}</div> }
     </div>
 
     return (
