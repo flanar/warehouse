@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import Row, { Obj } from './Row'
 
 interface BodyItem {
@@ -10,9 +10,10 @@ interface BodyItem {
 interface TableProps {
     head: Array<string>
     body: Array<BodyItem>
+    foot: ReactNode
 }
 
-const Table: FC<TableProps> = ({head, body}) => {
+const Table: FC<TableProps> = ({head, body, foot}) => {
     const thead = <div className={`grid grid-cols-${head.length} bg-teal-800 text-center`}>
         {head.map(item => <div key={item} className='px-6 py-3 border border-coolGray-100'>{item}</div>)}
     </div>
@@ -26,7 +27,12 @@ const Table: FC<TableProps> = ({head, body}) => {
         />)}
     </div>
 
-    const tfoot = <div className='px-6 py-3 bg-teal-800 hover:opacity-80 border border-coolGray-100 cursor-pointer'>+</div>
+    const [show, setShow] = useState(false)
+
+    const tfoot = <div>
+        <div className='px-6 py-3 bg-teal-800 hover:opacity-80 border border-coolGray-100 cursor-pointer' onClick={() => setShow(!show)}>{show ? '-' : '+'}</div>
+        { show && <div>{foot}</div> }
+    </div>
 
     return (
         <div className='text-white'>

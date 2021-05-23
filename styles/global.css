@@ -8,12 +8,11 @@
 }
 
 .marked-checkbox:checked::after {
-    content: url('/check.svg');
+    content: '';
+    background-image: url('/check.svg');
+    background-size: 1rem 1rem;
     width: 1rem;
     height: 1rem;
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: transparent;
 }
