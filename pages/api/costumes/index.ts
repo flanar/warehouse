@@ -22,7 +22,7 @@ export default withSession(async (req, res) => {
                 const payload = JSON.parse(req.body)
                 await db('costumes').insert([{
                     costume_tag: payload.costume_tag,
-                    region_id: payload.region_id,
+                    region_id: payload.region_id === '' ? null : payload.region_id,
                     type_id: payload.type_id,
                     costume_gender: payload.costume_gender,
                     costume_description: payload.costume_description,
@@ -34,7 +34,7 @@ export default withSession(async (req, res) => {
                 const costume = JSON.parse(req.body)
                 await db('costumes').where('costume_id', '=', costume.costume_id).update({
                     costume_tag: costume.costume_tag,
-                    region_id: costume.region_id,
+                    region_id: costume.region_id === '' ? null : costume.region_id,
                     type_id: costume.type_id,
                     costume_gender: costume.costume_gender,
                     costume_description: costume.costume_description,

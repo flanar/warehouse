@@ -25,6 +25,7 @@ const Sidebar = () => {
             <ul className='flex flex-col'>
                 <SidebarItem pathname='/' label='Home' icon={<Home />} hideLabel={hideLabel} />
                 <SidebarItem pathname='/costumes' label='Costumes' icon={<ShoppingBag />} hideLabel={hideLabel} />
+                <SidebarItem pathname='/borrowed-costumes' label='Borrowed' icon={<ShoppingBag />} hideLabel={hideLabel} />
                 <SidebarItem pathname='/regions' label='Regions' icon={<Truck />} hideLabel={hideLabel} />
                 <SidebarItem pathname='/types' label='Types' icon={<Bookmark />} hideLabel={hideLabel} />
                 <SidebarItem pathname='/members' label='Members' icon={<UserGroup />} hideLabel={hideLabel} />

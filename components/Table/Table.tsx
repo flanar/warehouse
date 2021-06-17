@@ -29,7 +29,7 @@ const Table: FC<TableProps> = ({head, body, foot, show, setShow}) => {
         />)}
     </div>
 
-    const tfoot = <div>
+    const tfoot = foot && <div>
         <div className='px-6 py-3 bg-teal-800 hover:opacity-80 border border-coolGray-100 cursor-pointer' onClick={() => setShow && setShow(!show)}>{show ? '-' : '+'}</div>
         { show && <div>{foot && foot}</div> }
     </div>
