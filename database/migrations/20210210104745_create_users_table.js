@@ -7,6 +7,8 @@ exports.up = function(knex) {
         t.string('user_name').notNullable()
         t.string('user_surname').notNullable()
         t.string('user_email').unique().notNullable()
+        t.integer('role_id').unsigned()
+        t.foreign('role_id').references('roles.role_id')
         t.timestamps()
     })
 }

@@ -29,6 +29,7 @@ export default withSession(async (req, res) => {
             case 'DELETE':
                 const regionForDelete = JSON.parse(req.body)
                 await db('regions').where('region_id', '=', regionForDelete.region_id).del()
+                res.status(200).json({ statusCode: 200, message: 'Region deleted' })
                 break
             default:
                 res.status(500).json({ statusCode: 404, message: 'Invalid operation' })

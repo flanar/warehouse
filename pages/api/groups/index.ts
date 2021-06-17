@@ -7,8 +7,14 @@ export default withSession(async (req, res) => {
     if(!user) return res.status(400).json({ message: 'You are not authorized.' })
 
     try {
-        const users = await db.select('user_login', 'user_name', 'user_surname', 'user_email', 'role_id').from('users')
-        res.status(200).json(users)
+        switch (req.method) {
+            case 'GET':
+                const types = await db.select('group_id', 'group_name').from('groups')
+                res.status(200).json(types)
+                break
+            default:
+                res.status(500).json({ statusCode: 404, message: 'Invalid operation' })
+        }
     } catch (err) {
         res.status(500).json({ statusCode: 500, message: err.message })
     }

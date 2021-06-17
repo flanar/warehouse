@@ -7,7 +7,7 @@ export default withSession(async (req, res) => {
         const userId = req.session.get('user')
 
         if(userId) {
-            const user = await db.select('user_id', 'user_login', 'user_name', 'user_surname', 'user_email').from('users').whereRaw('user_id = ?', [userId])
+            const user = await db.select('user_id', 'user_login', 'user_name', 'user_surname', 'user_email', 'role_id').from('users').whereRaw('user_id = ?', [userId])
 
             if(user[0]) {
                 res.status(200).json({
