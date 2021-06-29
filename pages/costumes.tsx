@@ -5,6 +5,7 @@ import fetch from '../utils/fetchJson'
 import useUser from '../utils/useUser'
 
 import Table from '../components/Table'
+import Pagination from '../components/Pagination'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Select from '../components/Select'
@@ -37,7 +38,7 @@ const CreateCostume = ({ mutate, setShow }: CreateCostumeProps) => {
 
     const fetchRegions = async () => {
         const regions = await fetch('/api/regions')
-        setRegionOptions(regions.map((region: any) => {
+        setRegionOptions(regions.rows.map((region: any) => {
             return {
                 value: region.region_id,
                 label: region.region_name
@@ -47,7 +48,7 @@ const CreateCostume = ({ mutate, setShow }: CreateCostumeProps) => {
 
     const fetchTypes = async () => {
         const types = await fetch('/api/types')
-        setTypeOptions(types.map((type: any) => {
+        setTypeOptions(types.rows.map((type: any) => {
             return {
                 value: type.type_id,
                 label: type.type_name
@@ -57,7 +58,7 @@ const CreateCostume = ({ mutate, setShow }: CreateCostumeProps) => {
 
     const fetchMembers = async () => {
         const members = await fetch('/api/members')
-        setMemberOptions(members.map((member: any) => {
+        setMemberOptions(members.rows.map((member: any) => {
             return {
                 value: member.member_id,
                 label: member.member_name + ' ' + member.member_surname
@@ -139,7 +140,7 @@ const EditCostume = ({ startValues, costumeId, mutate }: EditCostumeProps) => {
 
     const fetchRegions = async () => {
         const regions = await fetch('/api/regions')
-        const prepareRegions = regions.map((region: any) => {
+        const prepareRegions = regions.rows.map((region: any) => {
             return {
                 value: region.region_id,
                 label: region.region_name
@@ -154,7 +155,7 @@ const EditCostume = ({ startValues, costumeId, mutate }: EditCostumeProps) => {
 
     const fetchTypes = async () => {
         const types = await fetch('/api/types')
-        setTypeOptions(types.map((type: any) => {
+        setTypeOptions(types.rows.map((type: any) => {
             return {
                 value: type.type_id,
                 label: type.type_name
@@ -164,7 +165,7 @@ const EditCostume = ({ startValues, costumeId, mutate }: EditCostumeProps) => {
 
     const fetchMembers = async () => {
         const members = await fetch('/api/members')
-        const prepareMembers = members.map((member: any) => {
+        const prepareMembers = members.rows.map((member: any) => {
             return {
                 value: member.member_id,
                 label: member.member_name + ' ' + member.member_surname
@@ -264,11 +265,69 @@ const Costumes = () => {
     const { user } = useUser({ redirectTo: '/' })
     if(!user || !user.isLoggedIn) return <div>Loading...</div>
 
-    const { data, mutate } = useSWR('/api/costumes')
-    
-    const head = ['Tag', 'Region', 'Type', 'Gender', 'Description', 'Member']
+    const [timeoutId, setTimeoutId] = useState<number | undefined>()
+    const [page, setPage] = useState(1)
+    const [url, setUrl] = useState('/api/costumes')
+    const [head, setHead] = useState([
+        {
+            name: 'costume_tag',
+            label: 'Tag',
+            sort: '',
+            search: ''
+        },
+        {
+            name: 'region_name',
+            label: 'Region',
+            sort: '',
+            search: ''
+        },
+        {
+            name: 'type_name',
+            label: 'Type',
+            sort: '',
+            search: ''
+        },
+        {
+            name: 'costume_gender',
+            label: 'Gender',
+            sort: '',
+        },
+        {
+            name: 'costume_description',
+            label: 'Description',
+            search: ''
+        },
+        {
+            name: 'member',
+            label: 'Member',
+            search: ''
+        }
+    ])
 
-    const body = data && Array.isArray(data) && data.map((item: any) => {
+    useEffect(() => {
+        const sort = head.filter((item: any) => {
+            return 'sort' in item && item.sort !== ''
+        })
+        const search = head.filter((item: any) => {
+            return 'search' in item && item.search !== ''
+        }).map((item: any) => {
+            return item.name + '_search=' + item.search
+        }).join('&')
+
+        clearInterval(timeoutId)
+        const id = setTimeout(() => {
+            const sortUrl = sort.length > 0 ? '&' + sort[0].name + '_sort=' + sort[0].sort : ''
+            const searchUrl = search !== '' ? '&' + search : ''
+            setUrl(`api/costumes?page=${page}${sortUrl}${searchUrl}`)
+        }, 300) as unknown as number
+        setTimeoutId(id)
+
+        return () => clearInterval(timeoutId)
+    }, [head, page])
+
+    const { data, mutate } = useSWR(url)
+    
+    const body = data && data.rows && data.rows.map((item: any) => {
         const dataValues = {
             costume_tag: item.costume_tag,
             region_name: item.region_id ? item.region_name : '',
@@ -290,11 +349,13 @@ const Costumes = () => {
             <h1 className='mb-4 font-bold'>Costumes</h1>
             <Table
                 head={head}
+                setHead={setHead}
                 body={body}
                 foot={<CreateCostume mutate={mutate} setShow={setShow} />}
                 show={show}
                 setShow={setShow}
             />
+            {data && data.lastPage > 1 && <Pagination lastPage={data && data.lastPage } currentPage={page} setCurrentPage={setPage} />}
         </div>
     )
 }

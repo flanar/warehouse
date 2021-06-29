@@ -16,7 +16,7 @@ module.exports = {
     },
     variants: {
         extend: {
-            backgroundColor: ['odd', 'checked'],
+            backgroundColor: ['odd', 'checked', 'disabled'],
         },
         scrollbar: ['rounded'],
     },

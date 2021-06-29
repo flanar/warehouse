@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import fetch from '../utils/fetchJson'
 
 import useUser from '../utils/useUser'
 
 import Table from '../components/Table'
+import Pagination from '../components/Pagination'
 import Input from '../components/Input'
 import Button from '../components/Button'
 
@@ -93,11 +94,42 @@ const Types = () => {
     const { user } = useUser({ redirectTo: '/' })
     if(!user || !user.isLoggedIn) return <div>Loading...</div>
 
-    const { data, mutate } = useSWR('/api/types')
-    
-    const head = ['Name']
+    const [timeoutId, setTimeoutId] = useState<number | undefined>()
+    const [page, setPage] = useState(1)
+    const [url, setUrl] = useState('/api/types')
+    const [head, setHead] = useState([
+        {
+            name: 'type_name',
+            label: 'Name',
+            sort: '',
+            search: ''
+        }
+    ])
 
-    const body = data && Array.isArray(data) && data.map((item: any) => {
+    useEffect(() => {
+        const sort = head.filter((item: any) => {
+            return 'sort' in item && item.sort !== ''
+        })
+        const search = head.filter((item: any) => {
+            return 'search' in item && item.search !== ''
+        }).map((item: any) => {
+            return item.name + '_search=' + item.search
+        }).join('&')
+
+        clearInterval(timeoutId)
+        const id = setTimeout(() => {
+            const sortUrl = sort.length > 0 ? '&' + sort[0].name + '_sort=' + sort[0].sort : ''
+            const searchUrl = search !== '' ? '&' + search : ''
+            setUrl(`api/types?page=${page}${sortUrl}${searchUrl}`)
+        }, 300) as unknown as number
+        setTimeoutId(id)
+
+        return () => clearInterval(timeoutId)
+    }, [head, page])
+
+    const { data, mutate } = useSWR(url)
+    
+    const body = data && data.rows && data.rows.map((item: any) => {
         const dataValues = {
             type_name: item.type_name
         }
@@ -114,11 +146,13 @@ const Types = () => {
             <h1 className='mb-4 font-bold'>Types</h1>
             <Table
                 head={head}
+                setHead={setHead}
                 body={body}
                 foot={<CreateType mutate={mutate} setShow={setShow} />}
                 show={show}
                 setShow={setShow}
             />
+            {data && data.lastPage > 1 && <Pagination lastPage={data && data.lastPage } currentPage={page} setCurrentPage={setPage} />}
         </div>
     )
 }
