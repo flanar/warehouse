@@ -69,11 +69,11 @@ const Table: FC<TableProps> = ({head, setHead, body, foot, show, setShow}) => {
     }
 
     const thead = <div className={`grid grid-cols-${head.length} bg-teal-800 text-center`}>
-        {head.map((item: HeadItem, index: number) => <div key={item.name} className='px-6 py-3 border border-coolGray-100' onClick={() => clickHeadHandler(index)}>{item.label + ('sort' in head[index] && head[index].sort === 'asc' ? ' asc' : head[index].sort === 'desc' ? ' desc' : '')}</div>)}
+        {head.map((item: HeadItem, index: number) => <div key={item.name} className={`px-6 py-3 border border-coolGray-100 ${'sort' in head[index] ? 'cursor-pointer' : ''}`} onClick={() => clickHeadHandler(index)}>{item.label + ('sort' in head[index] && head[index].sort === 'asc' ? ' ↑' : head[index].sort === 'desc' ? ' ↓' : '')}</div>)}
     </div>
 
-    const searchBar = <div className={`grid grid-cols-${head.length} bg-teal-800 text-center`}>
-        {head.map((item: HeadItem) => <div key={item.name} className='px-6 py-3 border border-coolGray-100'>
+    const searchBar = <div className={`grid grid-cols-${head.length} bg-teal-800`}>
+        {head.map((item: HeadItem) => <div key={item.name} className='px-6 py-3 flex justify-center border border-coolGray-100'>
             {'search' in item ? <Input name={item.name} type='text' value={item.search} onChange={onChangeHandler} /> : ''}
         </div>)}
     </div>
@@ -93,11 +93,13 @@ const Table: FC<TableProps> = ({head, setHead, body, foot, show, setShow}) => {
     </div>
 
     return (
-        <div className='text-white'>
-            {thead}
-            {searchBar}
-            {tbody}
-            {tfoot}
+        <div className='overflow-x-auto'>
+            <div className='text-white' style={{minWidth: `${head.length * 280}px`}}>
+                {thead}
+                {searchBar}
+                {tbody}
+                {tfoot}
+            </div>
         </div>
     )
 }

@@ -6,6 +6,7 @@ import useUser from '../utils/useUser'
 
 import Table from '../components/Table'
 import Pagination from '../components/Pagination'
+import Formula from '../components/Formula'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Select from '../components/Select'
@@ -93,13 +94,13 @@ const CreateMember = ({ mutate, setShow }: CreateMemberProps) => {
     }
 
     return (
-        <div className='p-4 flex flex-col justify-start items-start'>
-            <div className='my-2'><Input name='member_name' type='text' value={values.member_name} label='Member Name' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Input name='member_surname' type='text' value={values.member_surname} label='Member Surname' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Select name='member_gender' label='Member gender' options={genderOptions} onOptionClick={onChangeGenderHandler} /></div>
-            <div className='my-2'><Select name='group_id' label='Group' options={groupOptions} onOptionClick={onChangeGroupHandler} /></div>
-            <div className='my-2'><Button type='button' onClick={createClickHandler}>Create</Button></div>
-        </div>
+        <Formula>
+            <Input name='member_name' type='text' value={values.member_name} label='Member Name' onChange={onChangeHandler} />
+            <Input name='member_surname' type='text' value={values.member_surname} label='Member Surname' onChange={onChangeHandler} />
+            <Select name='member_gender' label='Member gender' options={genderOptions} onOptionClick={onChangeGenderHandler} />
+            <Select name='group_id' label='Group' options={groupOptions} onOptionClick={onChangeGroupHandler} />
+            <Button type='button' onClick={createClickHandler}>Create</Button>
+        </Formula>
     )
 }
 
@@ -184,16 +185,16 @@ const EditMember = ({ startValues, memberId, mutate }: EditMemberProps) => {
     }
 
     return (
-        <div className='p-4 flex flex-col justify-start items-start'>
-            <div className='my-2'><Input name='member_name' type='text' value={values.member_name} label='Member Name' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Input name='member_surname' type='text' value={values.member_surname} label='Member Surname' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Select name='member_gender' label='Member gender' options={genderOptions} defaultOption={{value: startValues.member_gender, label: startValues.member_gender_name}} onOptionClick={onChangeGenderHandler} /></div>
-            <div className='my-2'><Select name='group_id' label='Group' options={groupOptions} defaultOption={{value: startValues.group_id, label: startValues.group_name}} onOptionClick={onChangeGroupHandler} /></div>
-            <div className='my-2'>
+        <Formula>
+            <Input name='member_name' type='text' value={values.member_name} label='Member Name' onChange={onChangeHandler} />
+            <Input name='member_surname' type='text' value={values.member_surname} label='Member Surname' onChange={onChangeHandler} />
+            <Select name='member_gender' options={genderOptions} defaultOption={{value: startValues.member_gender, label: startValues.member_gender_name}} onOptionClick={onChangeGenderHandler} />
+            <Select name='group_id' options={groupOptions} defaultOption={{value: startValues.group_id, label: startValues.group_name}} onOptionClick={onChangeGroupHandler} />
+            <div className='flex gap-2'>
                 <Button type='button' onClick={updateClickHandler}>Update</Button>
-                <span className='ml-2'><Button type='button' onClick={deleteClickHandler}>Delete</Button></span>
+                <Button type='button' onClick={deleteClickHandler}>Delete</Button>
             </div>
-        </div>
+        </Formula>
     )
 }
 

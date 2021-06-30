@@ -6,6 +6,7 @@ import useUser from '../utils/useUser'
 
 import Table from '../components/Table'
 import Pagination from '../components/Pagination'
+import Formula from '../components/Formula'
 import Input from '../components/Input'
 import Button from '../components/Button'
 
@@ -42,10 +43,10 @@ const CreateType = ({ mutate, setShow }: CreateTypeProps) => {
     }
 
     return (
-        <div className='p-4 flex justify-start items-start'>
+        <Formula>
             <Input name='name' type='text' value={value} label='Type Name' onChange={onChangeHandler} />
-            <div className='mx-2'><Button type='button' onClick={createClickHandler}>Create</Button></div>
-        </div>
+            <Button type='button' onClick={createClickHandler}>Create</Button>
+        </Formula>
     )
 }
 
@@ -82,11 +83,13 @@ const EditType = ({ startValue, typeId, mutate }: EditTypeProps) => {
     }
 
     return (
-        <div className='p-4 flex justify-start items-start'>
+        <Formula>
             <Input name='name' type='text' value={value} label='Type Name' onChange={onChangeHandler} />
-            <div className='mx-2'><Button type='button' onClick={updateClickHandler}>Update</Button></div>
-            <Button type='button' onClick={deleteClickHandler}>Delete</Button>
-        </div>
+            <div className='flex gap-2'>
+                <Button type='button' onClick={updateClickHandler}>Update</Button>
+                <Button type='button' onClick={deleteClickHandler}>Delete</Button>
+            </div>
+        </Formula>
     )
 }
 

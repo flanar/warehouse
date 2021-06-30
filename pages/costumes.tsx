@@ -6,6 +6,7 @@ import useUser from '../utils/useUser'
 
 import Table from '../components/Table'
 import Pagination from '../components/Pagination'
+import Formula from '../components/Formula'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Select from '../components/Select'
@@ -118,15 +119,15 @@ const CreateCostume = ({ mutate, setShow }: CreateCostumeProps) => {
     }
 
     return (
-        <div className='p-4 flex flex-col justify-start items-start'>
-            <div className='my-2'><Input name='costume_tag' type='text' value={values.costume_tag} label='Costume Tag' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Select name='region_id' label='Region' options={regionOptions} onOptionClick={(value: any) => onChangeSelectHandler('region_id', value)} /></div>
-            <div className='my-2'><Select name='type_id' label='Type' options={typeOptions} onOptionClick={(value: any) => onChangeSelectHandler('type_id', value)} /></div>
-            <div className='my-2'><Select name='costutme_gender' label='Gender' options={genderOptions} onOptionClick={(value: any) => onChangeSelectHandler('costume_gender', value)} /></div>
-            <div className='my-2'><Input name='costume_description' type='text' value={values.costume_description} label='Costume Description' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Select name='member_id' label='Member' options={memberOptions} onOptionClick={(value: any) => onChangeSelectHandler('member_id', value)} /></div>
-            <div className='my-2'><Button type='button' onClick={createClickHandler}>Create</Button></div>
-        </div>
+        <Formula>
+            <Input name='costume_tag' type='text' value={values.costume_tag} label='Costume Tag' onChange={onChangeHandler} />
+            <Select name='region_id' label='Region' options={regionOptions} onOptionClick={(value: any) => onChangeSelectHandler('region_id', value)} />
+            <Select name='type_id' label='Type' options={typeOptions} onOptionClick={(value: any) => onChangeSelectHandler('type_id', value)} />
+            <Select name='costutme_gender' label='Gender' options={genderOptions} onOptionClick={(value: any) => onChangeSelectHandler('costume_gender', value)} />
+            <Input name='costume_description' type='text' value={values.costume_description} label='Costume Description' onChange={onChangeHandler} />
+            <Select name='member_id' label='Member' options={memberOptions} onOptionClick={(value: any) => onChangeSelectHandler('member_id', value)} />
+            <Button type='button' onClick={createClickHandler}>Create</Button>
+        </Formula>
     )
 }
 
@@ -246,18 +247,18 @@ const EditCostume = ({ startValues, costumeId, mutate }: EditCostumeProps) => {
     }
 
     return (
-        <div className='p-4 flex flex-col justify-start items-start'>
-            <div className='my-2'><Input name='costume_tag' type='text' value={values.costume_tag} label='Costume Tag' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Select name='region_id' label='Region' options={regionOptions} defaultOption={{value: startValues.region_id === null ? '' : startValues.region_id, label: startValues.region_id === null ? '--' : startValues.region_name}} onOptionClick={(value: any) => onChangeSelectHandler('region_id', value)} /></div>
-            <div className='my-2'><Select name='type_id' label='Type' options={typeOptions} defaultOption={{value: startValues.type_id, label: startValues.type_name}} onOptionClick={(value: any) => onChangeSelectHandler('type_id', value)} /></div>
-            <div className='my-2'><Select name='costume_gender' label='Gender' options={genderOptions} defaultOption={{value: startValues.costume_gender, label: startValues.costume_gender_name}} onOptionClick={(value: any) => onChangeSelectHandler('costume_gender', value)} /></div>
-            <div className='my-2'><Input name='costume_description' type='text' value={values.costume_description} label='Costume Description' onChange={onChangeHandler} /></div>
-            <div className='my-2'><Select name='member_id' label='Member' options={memberOptions} defaultOption={{value: startValues.member_id === null ? '' : startValues.member_id, label: startValues.member_id === null ? '--' : startValues.member_name + ' ' + startValues.member_surname}} onOptionClick={(value: any) => onChangeSelectHandler('member_id', value)} /></div>
-            <div className='my-2'>
+        <Formula>
+            <Input name='costume_tag' type='text' value={values.costume_tag} label='Costume Tag' onChange={onChangeHandler} />
+            <Select name='region_id' label='Region' options={regionOptions} defaultOption={{value: startValues.region_id === null ? '' : startValues.region_id, label: startValues.region_id === null ? '--' : startValues.region_name}} onOptionClick={(value: any) => onChangeSelectHandler('region_id', value)} />
+            <Select name='type_id' label='Type' options={typeOptions} defaultOption={{value: startValues.type_id, label: startValues.type_name}} onOptionClick={(value: any) => onChangeSelectHandler('type_id', value)} />
+            <Select name='costume_gender' label='Gender' options={genderOptions} defaultOption={{value: startValues.costume_gender, label: startValues.costume_gender_name}} onOptionClick={(value: any) => onChangeSelectHandler('costume_gender', value)} />
+            <Input name='costume_description' type='text' value={values.costume_description} label='Costume Description' onChange={onChangeHandler} />
+            <Select name='member_id' label='Member' options={memberOptions} defaultOption={{value: startValues.member_id === null ? '' : startValues.member_id, label: startValues.member_id === null ? '--' : startValues.member_name + ' ' + startValues.member_surname}} onOptionClick={(value: any) => onChangeSelectHandler('member_id', value)} />
+            <div className='flex gap-2'>
                 <Button type='button' onClick={updateClickHandler}>Update</Button>
-                <span className='ml-2'><Button type='button' onClick={deleteClickHandler}>Delete</Button></span>
+                <Button type='button' onClick={deleteClickHandler}>Delete</Button>
             </div>
-        </div>
+        </Formula>
     )
 }
 
